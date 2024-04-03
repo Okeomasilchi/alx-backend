@@ -29,13 +29,10 @@ class FIFOCache(BaseCaching):
           None
         """
         if key is not None and item is not None:
-            if len(self.cache_data) > BaseCaching.MAX_ITEMS and self.vals:
-                self.cache_data.pop(self.vals[0], None)
-                print(f"DISCARD: {self.vals[0]}")
-                # print(self.vals[0])
-                del self.vals[0]
-            self.vals.append(key)
-            # print(self.vals)
+            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
+                FI = next(iter(self.cache_data))
+                print("DISCARD:", FI)
+                del self.cache_data[FI]
             self.cache_data[key] = item
 
     def get(self, key: str) -> dict:
