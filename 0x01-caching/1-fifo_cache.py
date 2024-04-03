@@ -47,7 +47,6 @@ class FIFOCache(BaseCaching):
           dict: The value associated with the key, or
             None if the key is not found in the cache.
         """
-        if key is not None:
-            return self.cache_data.get(key)
-        else:
+        if key is None or key not in self.cache_data:
             return None
+        return self.cache_data[key]
