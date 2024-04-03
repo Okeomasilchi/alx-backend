@@ -3,57 +3,43 @@
 BasicCache that inherits from BaseCaching and is a caching system
 """
 from base_caching import BaseCaching
+from collections import defaultdict
 
 
 class LFUCache(BaseCaching):
-    """
-    This class likely represents a basic
-    caching mechanism in Python.
-    """
+    """ LFU caching system """
+
     def __init__(self):
-        """Call the constructor of the parent class"""
+        """ Initialize """
         super().__init__()
-        self.vals = []
+        self.frequency = defaultdict(int)
 
-    def put(self, key: str, item: str) -> None:
-        """
-        Add an item to the cache using LIFO caching policy.
-
-        Args:
-          key (str): The key to associate with
-            the item.
-          item (any): The item to be stored in
-            the cache.
-
-        Returns:
-          None
-        """
+    def put(self, key, item):
+        """ Add an item to the cache """
         if key is None or item is None:
             return
-        if key in self.cache:
-            self.cache[key] = item
-            data = self.cache_data.pop(key)
-            self.cache_data[key] = data
+
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            LFU = list(self.cache_data.keys())[0]
-            print("DISCARD:", LFU)
-            del self.cache_data[LFU]
+            least_freq = min(self.frequency.values())
+            keys_least_freq = [k for k, v in self.frequency.items() if v == least_freq]
+
+            if len(keys_least_freq) == 1:
+                discarded_key = keys_least_freq[0]
+            else:
+                lru_key = min(self.cache_data, key=self.frequency.get)
+                discarded_key = lru_key
+
+            del self.cache_data[discarded_key]
+            del self.frequency[discarded_key]
+            print("DISCARD:", discarded_key)
+
         self.cache_data[key] = item
+        self.frequency[key] += 1
 
-    def get(self, key: str) -> dict:
-        """
-        Retrieve the value associated with the given
-        key from the cache.
-
-        Args:
-          key (str): The key to retrieve the value for.
-
-        Returns:
-          dict: The value associated with the key, or
-            None if the key is not found in the cache.
-        """
+    def get(self, key):
+        """ Get an item from the cache """
         if key is None or key not in self.cache_data:
             return None
-        data = self.cache_data.pop(key)
-        self.cache_data[key] = data
+
+        self.frequency[key] += 1
         return self.cache_data[key]
