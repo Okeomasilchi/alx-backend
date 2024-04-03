@@ -31,9 +31,9 @@ class MRUCache(BaseCaching):
         if key is None or item is None:
             return
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            lifo = list(self.cache_data.keys())[-1]
-            print("DISCARD:", lifo)
-            del self.cache_data[lifo]
+            MRU = list(self.cache_data.keys())[-1]
+            print("DISCARD:", MRU)
+            del self.cache_data[MRU]
         self.cache_data[key] = item
 
     def get(self, key: str) -> dict:

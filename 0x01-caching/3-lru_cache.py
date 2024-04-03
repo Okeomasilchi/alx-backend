@@ -31,9 +31,9 @@ class LRUCache(BaseCaching):
         if key is None or item is None:
             return
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            lifo = list(self.cache_data.keys())[0]
-            print("DISCARD:", lifo)
-            del self.cache_data[lifo]
+            LRU = list(self.cache_data.keys())[0]
+            print("DISCARD:", LRU)
+            del self.cache_data[LRU]
         self.cache_data[key] = item
 
     def get(self, key: str) -> dict:
