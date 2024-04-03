@@ -21,7 +21,10 @@ class LFUCache(BaseCaching):
 
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             least_freq = min(self.frequency.values())
-            keys_least_freq = [k for k, v in self.frequency.items() if v == least_freq]
+            keys_least_freq = [
+              k for k, v in self.frequency.items()
+              if v == least_freq
+              ]
 
             if len(keys_least_freq) == 1:
                 discarded_key = keys_least_freq[0]
