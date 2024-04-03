@@ -10,6 +10,13 @@ class BasicCache(BaseCaching):
     This class likely represents a basic
     caching mechanism in Python.
     """
+
+    MAX_ITEMS = float("inf")
+
+    def __init__(self):
+        """Call the constructor of the parent class"""
+        super().__init__()
+
     def put(self, key: str, item: any) -> None:
         """
         Add an item to the cache.
