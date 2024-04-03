@@ -11,13 +11,11 @@ class BasicCache(BaseCaching):
     caching mechanism in Python.
     """
 
-    MAX_ITEMS = float("inf")
-
     def __init__(self):
         """Call the constructor of the parent class"""
         super().__init__()
 
-    def put(self, key: str, item: any) -> None:
+    def put(self, key: str, item: str) -> None:
         """
         Add an item to the cache.
 
@@ -30,9 +28,7 @@ class BasicCache(BaseCaching):
         Returns:
           None
         """
-        if [key, item] is None:
-            pass
-        else:
+        if key is not None and item is not None:
             self.cache_data[key] = item
 
     def get(self, key: str) -> dict:
@@ -47,7 +43,7 @@ class BasicCache(BaseCaching):
           dict: The value associated with the key, or
             None if the key is not found in the cache.
         """
-        if key is None or key not in self.cache_data:
-            return None
+        if key is not None:
+            return self.cache_data.get(key)
         else:
-            return self.cache_data[key]
+            return None
