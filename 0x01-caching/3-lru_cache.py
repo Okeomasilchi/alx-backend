@@ -5,7 +5,7 @@ BasicCache that inherits from BaseCaching and is a caching system
 from base_caching import BaseCaching
 
 
-class LRUCache(BaseCaching):
+class MRUCache(BaseCaching):
     """
     This class likely represents a basic
     caching mechanism in Python.
@@ -30,6 +30,10 @@ class LRUCache(BaseCaching):
         """
         if key is None or item is None:
             return
+        if key in self.cache:
+            self.cache[key] = item
+            data = self.cache_data.pop(key)
+            self.cache_data[key] = data
         if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
             LRU = list(self.cache_data.keys())[0]
             print("DISCARD:", LRU)
