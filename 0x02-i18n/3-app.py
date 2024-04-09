@@ -5,7 +5,7 @@ Get locale from request
 
 
 from flask import Flask, render_template, request
-from flask_babel import Babel, _
+from flask_babel import Babel, gettext
 
 
 app: Flask = Flask(__name__)
@@ -15,14 +15,14 @@ babel: Babel = Babel(app)
 class Config:
     """Config class for Babel"""
     LANGUAGES = ["en", "fr"]
-    BABEL_DEFAULT_LOCALE = "fr"
+    BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
 app.config.from_object(Config)
 
 
-@babel.localeselector
+# @babel.localeselector
 def get_locale() -> str:
     """Get locale from request"""
     return request.accept_languages.best_match(
@@ -32,11 +32,9 @@ def get_locale() -> str:
 
 def index() -> str:
     """Returns a string"""
-    return render_template(
-      '3-index.html',
-      title=_('home_title'),
-      header=_('home_header')
-      )
+    title = gettext('home_title')
+    header = gettext('home_header')
+    return render_template('3-index.html', title=title, header=header) 
 
 
 @app.route('/', strict_slashes=False)
