@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Get locale from request
+Force locale with URL parameter
 """
 
 
