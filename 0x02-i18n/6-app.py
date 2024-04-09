@@ -24,8 +24,10 @@ app.config.from_object(Config)
 
 @babel.localeselector
 def get_locale() -> str:
-    """Get locale based on user preference,
-    URL parameters, or request headers"""
+    """
+    Get locale based on user preference,
+    URL parameters, or request headers
+    """
     if g.user and g.user.get('locale') in app.config['LANGUAGES']:
         return g.user.get('locale')
 
