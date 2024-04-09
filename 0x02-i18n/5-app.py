@@ -6,7 +6,7 @@ Mock logging in
 
 from flask import Flask, render_template, g, request
 from flask_babel import Babel, gettext
-from login import get_user
+
 
 app: Flask = Flask(__name__)
 babel: Babel = Babel(app)
@@ -53,6 +53,10 @@ users = {
     },
 }
 
+
+def get_user(user_id: int) -> dict:
+    """Get user from mock database"""
+    return users.get(user_id, None)
 
 
 @app.before_request
