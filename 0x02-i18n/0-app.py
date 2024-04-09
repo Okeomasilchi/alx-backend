@@ -9,9 +9,11 @@ from flask import Flask, render_template
 
 app: Flask = Flask(__name__)
 
+
 def index() -> str:
     """Returns a string"""
     return render_template('0-index.html')
+
 
 @app.route('/', strict_slashes=False)
 def index_route() -> str:
