@@ -4,13 +4,6 @@ log system in
 """
 
 
-from flask import g, request
-
-
-
-# app = __import__('5-app').app
-
-
 users = {
     1: {
         "name": "Balou",
@@ -38,6 +31,3 @@ users = {
 def get_user(user_id: int) -> dict:
     """Get user from mock database"""
     return users.get(user_id)
-
-
-
