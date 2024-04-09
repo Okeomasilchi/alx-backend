@@ -81,7 +81,7 @@ def before_request() -> None:
 def index():
     """Render index template"""
     return render_template(
-        '5-index.html',
+        '6-index.html',
         title=gettext('home_title'),
         header=gettext('home_header')
     )
