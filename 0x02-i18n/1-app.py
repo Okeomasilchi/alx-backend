@@ -8,8 +8,8 @@ from flask import Flask, render_template
 from flask_babel import Babel
 
 
-app = Flask(__name__)
-babel = Babel(app)
+app: Flask = Flask(__name__)
+babel: Babel = Babel(app)
 
 
 class Config:
@@ -22,14 +22,15 @@ class Config:
 app.config.from_object(Config)
 
 
-@app.route('/', strict_slashes=False)
-def index():
+def index() -> str:
     """Returns a string"""
-    return render_template(
-        '1-index.html',
-        title='Welcome to Holberton',
-        text='Hello world'
-    )
+    return render_template('1-index.html')
+
+
+@app.route('/', strict_slashes=False)
+def index_route() -> str:
+    '''Return index'''
+    return index()
 
 
 if __name__ == '__main__':
