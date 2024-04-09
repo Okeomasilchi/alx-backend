@@ -30,17 +30,16 @@ def get_locale() -> str:
         )
 
 
-def index() -> str:
+@app.route('/', strict_slashes=False)
+def index_route() -> str:
     """Returns a string"""
     title = gettext('home_title')
     header = gettext('home_header')
-    return render_template('3-index.html', title=title, header=header) 
-
-
-@app.route('/', strict_slashes=False)
-def index_route() -> str:
-    '''Return index'''
-    return index()
+    return render_template(
+      '3-index.html',
+      title=title,
+      header=header
+      )
 
 
 if __name__ == '__main__':
