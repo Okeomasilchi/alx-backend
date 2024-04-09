@@ -6,10 +6,10 @@ Mock logging in
 
 from flask import Flask, render_template, g, request
 from flask_babel import Babel, gettext
-
+from login import get_user
 
 app: Flask = Flask(__name__)
-babel: Babel = Babel(app, get_locale=get_locale)
+babel: Babel = Babel(app)
 
 
 class Config:
@@ -32,31 +32,27 @@ def get_locale() -> str:
 
 users = {
     1: {
-      "name": "Balou",
-      "locale": "fr",
-      "timezone": "Europe/Paris"
-      },
+        "name": "Balou",
+        "locale": "fr",
+        "timezone": "Europe/Paris"
+    },
     2: {
-      "name": "Beyonce",
-      "locale": "en",
-      "timezone": "US/Central"
-      },
+        "name": "Beyonce",
+        "locale": "en",
+        "timezone": "US/Central"
+    },
     3: {
-      "name": "Spock",
-      "locale": "kg",
-      "timezone": "Vulcan"
-      },
+        "name": "Spock",
+        "locale": "kg",
+        "timezone": "Vulcan"
+    },
     4: {
-      "name": "Teletubby",
-      "locale": None,
-      "timezone": "Europe/London"
-      },
+        "name": "Teletubby",
+        "locale": None,
+        "timezone": "Europe/London"
+    },
 }
 
-
-def get_user(user_id: int) -> dict:
-    """Get user from mock database"""
-    return users.get(user_id)
 
 
 @app.before_request
@@ -73,10 +69,10 @@ def before_request() -> None:
 def index():
     """Render index template"""
     return render_template(
-      '5-index.html',
-      title=gettext('home_title'),
-      header=gettext('home_header')
-      )
+        '5-index.html',
+        title=gettext('home_title'),
+        header=gettext('home_header')
+    )
 
 
 if __name__ == '__main__':
