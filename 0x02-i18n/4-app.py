@@ -8,15 +8,8 @@ from flask import Flask, render_template, request
 from flask_babel import Babel, gettext
 
 
-def get_locale() -> str:
-    """Get locale from request"""
-    f = request.args.get('locale')
-    ret = request.accept_languages.best_match(app.config['LANGUAGES'])
-    return f if f and f in app.config['LANGUAGES'] else ret
-
-
 app: Flask = Flask(__name__)
-babel: Babel = Babel(app, locale_selector=get_locale)
+babel: Babel = Babel(app)
 
 
 class Config:
@@ -27,6 +20,14 @@ class Config:
 
 
 app.config.from_object(Config)
+
+
+@babel.localeselector
+def get_locale() -> str:
+    """Get locale from request"""
+    f = request.args.get('locale')
+    ret = request.accept_languages.best_match(app.config['LANGUAGES'])
+    return f if f and f in app.config['LANGUAGES'] else ret
 
 
 @app.route('/', strict_slashes=False)
