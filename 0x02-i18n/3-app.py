@@ -12,6 +12,14 @@ app: Flask = Flask(__name__)
 babel: Babel = Babel(app)
 
 
+@babel.localeselector
+def get_locale() -> str:
+    """Get locale from request"""
+    return request.accept_languages.best_match(
+        app.config['LANGUAGES']
+        )
+
+
 class Config:
     """Config class for Babel"""
     LANGUAGES = ["en", "fr"]
@@ -22,23 +30,13 @@ class Config:
 app.config.from_object(Config)
 
 
-@babel.localeselector
-def get_locale() -> str:
-    """Get locale from request"""
-    return request.accept_languages.best_match(
-        app.config['LANGUAGES']
-        )
-
-
 @app.route('/', strict_slashes=False)
 def index_route() -> str:
     """Returns a string"""
-    title = gettext('home_title')
-    header = gettext('home_header')
     return render_template(
       '3-index.html',
-      title=title,
-      header=header
+      title=gettext('home_title'),
+      header=gettext('home_header')
       )
 
 
