@@ -17,6 +17,7 @@ def index() -> str:
 
 @app.route('/', strict_slashes=False)
 def index_route() -> str:
+    '''Return index'''
     return index()
 
 
