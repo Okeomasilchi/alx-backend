@@ -32,7 +32,7 @@ def get_locale() -> str:
 
 def index() -> str:
     """Returns a string"""
-    return render_template('1-index.html')
+    return render_template('2-index.html')
 
 
 @app.route('/', strict_slashes=False)
