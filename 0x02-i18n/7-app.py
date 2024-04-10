@@ -34,12 +34,29 @@ users = {
 
 
 def get_user(user_id: int) -> dict:
-    """Get user from mock database"""
+    """
+    Retrieve a user from the users dictionary
+    based on the given user_id.
+
+    Args:
+        user_id (int): The ID of the user to retrieve.
+
+    Returns:
+        dict: The user information if found, None otherwise.
+    """
     return users.get(user_id, None)
 
 
 def validate_timezone(timezone: str) -> bool:
-    """Validate if the timezone is valid"""
+    """
+    Validate if the timezone is valid.
+
+    Args:
+        timezone (str): The timezone to be validated.
+
+    Returns:
+        bool: True if the timezone is valid, False otherwise.
+    """
     try:
         pytz.timezone(timezone)
         return True
@@ -52,7 +69,14 @@ babel: Babel = Babel(app)
 
 
 class Config:
-    """Config class for Babel"""
+    """
+    Config class for Babel.
+
+    Attributes:
+        LANGUAGES (list): List of supported languages.
+        BABEL_DEFAULT_LOCALE (str): Default locale for Babel.
+        BABEL_DEFAULT_TIMEZONE (str): Default timezone for Babel.
+    """
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
@@ -97,7 +121,19 @@ def get_timezone() -> str:
 
 @app.before_request
 def before_request() -> None:
-    """Set user globally in flask.g"""
+    """Set user globally in flask.g.
+
+    This function is executed before each request is
+    processed by the Flask application. It retrieves
+    the user ID from the request arguments and sets
+    the user globally in the `flask.g` object.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     user_id = request.args.get('login_as')
     if user_id:
         g.user = get_user(int(user_id))
@@ -107,7 +143,15 @@ def before_request() -> None:
 
 @app.route('/')
 def index():
-    """Render index template"""
+    """Render index template.
+
+    This function renders the index template and
+    passes the translated title and header to
+    the template.
+
+    Returns:
+        The rendered index template.
+    """
     return render_template(
         '7-index.html',
         title=gettext('home_title'),
