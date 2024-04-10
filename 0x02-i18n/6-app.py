@@ -51,7 +51,7 @@ class Config:
 app.config.from_object(Config)
 
 
-@babel.localeselector
+@babel.selector
 def get_locale() -> str:
     """
     Get locale based on user preference,
