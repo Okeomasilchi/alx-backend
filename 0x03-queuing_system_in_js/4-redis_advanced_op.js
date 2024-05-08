@@ -19,6 +19,14 @@ const data = [
   ['Paris', '2'],
 ];
 
+/**
+ * Creates a hash in Redis with the specified key, field, and value.
+ *
+ * @param {string} key - The key of the hash.
+ * @param {string} field - The field of the hash.
+ * @param {string} value - The value to be stored in the hash.
+ * @returns {void}
+ */
 function createHash (key, field, value) {
   client.hset (key, field, value, (err, reply) => {
     if (err) {

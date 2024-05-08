@@ -2,6 +2,13 @@ import Kue from 'kue';
 
 const blackList = ['4153518780', '4153518781'];
 
+/**
+ * Sends a notification to a phone number with a given message.
+ * @param {string} phoneNumber - The phone number to send the notification to.
+ * @param {string} message - The message to include in the notification.
+ * @param {object} job - The job object representing the notification job.
+ * @param {function} done - The callback function to be called when the job is done.
+ */
 const sendNotification = (phoneNumber, message, job, done) => {
   job.progress (0, 100);
 

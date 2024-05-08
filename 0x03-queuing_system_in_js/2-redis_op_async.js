@@ -10,6 +10,13 @@ client
     console.log (`Redis client not connected to the server: ${err}`);
   });
 
+/**
+ * Sets a new school in Redis with the given school name and value.
+ *
+ * @param {string} schoolName - The name of the school.
+ * @param {string} value - The value associated with the school.
+ * @returns {void}
+ */
 function setNewSchool (schoolName, value) {
   client.set (schoolName, value, (err, reply) => {
     if (err) {
@@ -20,6 +27,11 @@ function setNewSchool (schoolName, value) {
   });
 }
 
+/**
+ * Retrieves and displays the value of a school from Redis.
+ * @param {string} schoolName - The name of the school to retrieve the value for.
+ * @returns {Promise<void>} - A Promise that resolves once the value is displayed.
+ */
 async function displaySchoolValue (schoolName) {
   await client.get (schoolName, (err, value) => {
     if (err) {

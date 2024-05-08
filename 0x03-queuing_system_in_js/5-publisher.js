@@ -10,6 +10,12 @@ publisher
     console.error (`Redis client not connected to the server: ${err.message}`);
   });
 
+/**
+ * Publishes a message after a specified delay.
+ *
+ * @param {string} message - The message to be published.
+ * @param {number} time - The delay in milliseconds before publishing the message.
+ */
 function publishMessage (message, time) {
   setTimeout (() => {
     console.log (`About to send ${message}`);
