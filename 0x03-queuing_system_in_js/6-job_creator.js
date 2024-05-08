@@ -4,7 +4,7 @@ const que = Kue.createQueue ();
 
 const jobData = {
   phoneNumber: '09123666419',
-  message: 'Hello World!',
+  message: 'welcome home',
 };
 
 const job = que.create ('push_notification_code', jobData).save ();
