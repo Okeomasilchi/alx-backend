@@ -9,11 +9,20 @@ const PORT = 1245;
 const client = redis.createClient ();
 const queue = kue.createQueue ();
 
+/**
+ * Reserves a seat by updating the number of available seats in the system.
+ * @param {number} number - The number of seats to reserve.
+ * @returns {Promise<void>} - A promise that resolves when the seat is reserved.
+ */
 const reserveSeat = async number => {
   const setAsync = promisify (client.set).bind (client);
   await setAsync ('available_seats', number.toString ());
 };
 
+/**
+ * Retrieves the current number of available seats.
+ * @returns {Promise<number>} The number of available seats.
+ */
 const getCurrentAvailableSeats = async () => {
   const getAsync = promisify (client.get).bind (client);
   const seats = await getAsync ('available_seats');
